@@ -1,5 +1,6 @@
 import express from 'express';
 import 'dotenv/config';
+import fetch from 'node-fetch';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 
@@ -15,43 +16,45 @@ app.use(express.static(join(__dirname)));
 const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
 
 const SYSTEM_PROMPT = `
-You are a highly sophisticated formal logic validation agent.
+You are a formal logic validation agent.
 
 Tasks:
-- Analyze propositional logic arguments (Rules of Inference + Rules of Replacement)
-- Analyze categorical syllogisms and always determine the mood explicitly (AAA-1, AAI-2, EAE-1, etc.)
-- Determine if an argument is VALID or INVALID
-- If valid, produce a step-by-step proof citing the rule used
-- If invalid, clearly explain the logical flaw
-- Provide detailed reasoning and explanations for every step
-- Respond strictly in JSON; mood must be present (null only if argument is not categorical)
+- Analyze propositional logic arguments using Rules of Inference and Rules of Replacement
+- Analyze categorical syllogisms and ALWAYS determine the correct mood (AAA-1, AAI-2, EAE-1, etc.)
+- Determine whether the argument is VALID or INVALID
+- If valid, provide a step-by-step formal proof citing the rule used
+- If invalid, clearly explain the logical error or fallacy
+- Respond STRICTLY in valid JSON
 
-Rules of Inference: Modus Ponens, Modus Tollens, Hypothetical Syllogism, Disjunctive Syllogism, Addition, Simplification, Conjunction, Constructive Dilemma, Resolution, Double Negation, Absorption, Exportation
+Rules of Inference:
+Modus Ponens, Modus Tollens, Hypothetical Syllogism, Disjunctive Syllogism,
+Addition, Simplification, Conjunction, Constructive Dilemma, Resolution,
+Double Negation, Absorption, Exportation
 
-Rules of Replacement: De Morgan, Commutation, Association, Distribution, Material Implication, Biconditional, Transposition, Tautology
+Rules of Replacement:
+De Morgan, Commutation, Association, Distribution,
+Material Implication, Biconditional, Transposition, Tautology
 
-Categorical syllogisms:
-- A (All S are P)
-- E (No S are P)
-- I (Some S are P)
-- O (Some S are not P)
+Categorical Propositions:
+A (All S are P)
+E (No S are P)
+I (Some S are P)
+O (Some S are not P)
 
 IMPORTANT:
-- Always detect categorical arguments
-- Always output correct mood for categorical syllogisms
-- Provide clear, human-readable explanation along with formal proof
+- Always detect categorical syllogisms
+- Always output the correct mood
+- Mood must NEVER be wrong
 `;
 
 const OUTPUT_FORMAT = `
-Output format (JSON only):
 {
   "valid": true | false,
   "proof": [
     { "step": 1, "statement": "...", "rule": "Premise" }
   ],
-  "mood": "AAA-1" | "AAI-2" | "EAE-1" | "AII-1" | null,
-  "error": null | "Reason argument is invalid",
-  "explanation": "Detailed step-by-step explanation for the conclusion"
+  "mood": "AAA-1" | "AAI-2" | "EAE-1" | null,
+  "error": null | "Explanation of invalidity"
 }
 `;
 
@@ -63,7 +66,7 @@ async function runChat(userInput) {
         "Authorization": `Bearer ${OPENROUTER_API_KEY}`,
         "Content-Type": "application/json",
         "HTTP-Referer": "http://localhost",
-        "X-Title": "Logic Agent"
+        "X-Title": "Logic Chatbot"
       },
       body: JSON.stringify({
         model: "openai/gpt-4o-mini",
@@ -78,48 +81,29 @@ async function runChat(userInput) {
     const data = await response.json();
     const rawText = data?.choices?.[0]?.message?.content || "";
 
-    // Clean Markdown JSON fences
-    const cleanJson = rawText.replace(/```json/g, '').replace(/```/g, '').trim();
+    const cleanJson = rawText.replace(/```json|```/g, '').trim();
+    return JSON.parse(cleanJson);
 
-    try {
-      const parsed = JSON.parse(cleanJson);
-
-      // Ensure mood and explanation are explicitly present
-      if (parsed.mood === undefined) parsed.mood = null;
-      if (parsed.explanation === undefined) parsed.explanation = "";
-
-      return parsed;
-    } catch {
-      return {
-        valid: false,
-        proof: [],
-        mood: null,
-        error: "Model did not return valid JSON",
-        explanation: "The AI response could not be parsed. Ensure the argument is in proper logical form."
-      };
-    }
   } catch (error) {
-    console.error("Logic Engine Error:", error.message);
     return {
       valid: false,
       proof: [],
       mood: null,
-      error: "Logic engine failure: " + error.message,
-      explanation: "The AI model could not process the request. Check your API key or network connection."
+      error: "Logic engine failure: " + error.message
     };
   }
 }
-
-app.get('/', (req, res) => {
-  res.sendFile(join(__dirname, 'index.html'));
-});
 
 app.post('/chat', async (req, res) => {
   const userInput = req.body?.userInput;
   if (!userInput) return res.status(400).json({ error: "No input provided" });
 
-  const botResponse = await runChat(userInput);
-  res.json({ response: botResponse });
+  const response = await runChat(userInput);
+  res.json({ response });
+});
+
+app.get('/', (req, res) => {
+  res.sendFile(join(__dirname, 'index.html'));
 });
 
 app.listen(port, () => {
