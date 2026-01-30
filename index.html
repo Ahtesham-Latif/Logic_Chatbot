@@ -14,6 +14,20 @@
       --text-main: #1f2937;
       --text-muted: #6b7280;
       --border-color: #e5e7eb;
+      --accent-light: #eff6ff;
+      --input-bg: #ffffff;
+    }
+
+    /* Dark Mode variables */
+    body.dark-mode {
+      --bg-color: #111827;
+      --chat-bg: #1f2937;
+      --bot-bubble: #374151;
+      --text-main: #f9fafb;
+      --text-muted: #9ca3af;
+      --border-color: #4b5563;
+      --accent-light: #1e293b;
+      --input-bg: #374151;
     }
 
     body {
@@ -26,29 +40,20 @@
       align-items: center;
       min-height: 100vh;
       padding: 20px;
+      transition: background-color 0.3s ease;
     }
 
-    #description {
-      max-width: 600px;
-      text-align: center;
-      margin-bottom: 1.5rem;
-    }
+    #description { max-width: 600px; text-align: center; margin-bottom: 1.5rem; }
+    #description h1 { font-size: 1.8rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.5rem; }
+    #description h2 { font-size: 1.2rem; font-weight: 500; color: var(--text-muted); margin-top: 0; }
 
-    #description h1 {
-      font-size: 1.8rem;
-      font-weight: 800;
-      color: #111827;
-      margin-bottom: 0.5rem;
-    }
-
-    /* Main Chat Container */
     #chat-container {
       background: var(--chat-bg);
       width: 100%;
       max-width: 800px;
       height: 70vh;
       border-radius: 12px;
-      box-shadow: 0 4px 20px -5px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
       display: flex;
       flex-direction: column;
       overflow: hidden;
@@ -62,131 +67,60 @@
       display: flex;
       flex-direction: column;
       gap: 20px;
-      background-color: #fafafa;
+      background-color: rgba(0,0,0,0.02);
     }
 
-    /* Message Wrapper for Sideways Layout */
-    .message-wrapper {
-      display: flex;
-      gap: 12px;
-      max-width: 85%;
-    }
+    .message-wrapper { display: flex; gap: 12px; max-width: 85%; }
+    .message-wrapper.user { align-self: flex-end; flex-direction: row-reverse; }
+    .message-wrapper.bot { align-self: flex-start; width: 90%; }
 
-    .message-wrapper.user {
-      align-self: flex-end;
-      flex-direction: row-reverse;
-    }
+    .avatar { width: 35px; height: 35px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-weight: bold; }
+    .bot-avatar { background: var(--primary-color); color: white; }
+    .user-avatar { background: #4b5563; color: white; }
 
-    .message-wrapper.bot {
-      align-self: flex-start;
-    }
+    .message { padding: 12px 16px; border-radius: 12px; font-size: 14.5px; line-height: 1.6; border: 1px solid var(--border-color); box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+    .user-message { background-color: var(--user-bubble); color: white; border-top-right-radius: 2px; border: none; }
+    .bot-message { background-color: var(--bot-bubble); border-top-left-radius: 2px; }
 
-    /* Avatars */
-    .avatar {
-      width: 30px;
-      height: 35px;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
+    /* LVL BAR SYSTEM */
+    .processing-container { padding: 5px 0; }
+    .lvl-bar-bg { width: 100%; height: 8px; background: #e5e7eb; border-radius: 10px; overflow: hidden; margin: 10px 0; }
+    .lvl-bar-fill { width: 0%; height: 100%; background: var(--primary-color); transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+    .status-text { font-size: 0.85rem; color: var(--text-muted); font-weight: 500; }
+
+    /* LOGIC OUTPUT UI */
+    .status-valid { color: #10b981; font-weight: 800; font-size: 1.1em; margin-bottom: 5px; }
+    .status-invalid { color: #ef4444; font-weight: 800; font-size: 1.1em; margin-bottom: 5px; }
+    .logic-header { font-size: 0.9em; color: var(--text-muted); font-weight: 600; margin-bottom: 10px; border-bottom: 1px solid var(--border-color); padding-bottom: 5px; }
+    .info-box { background: var(--accent-light); border: 1px solid var(--border-color); border-radius: 8px; padding: 12px; margin: 10px 0; font-family: 'Courier New', monospace; font-size: 0.85em; color: var(--text-main); }
+    .proof-step { display: block; padding: 3px 0; font-family: 'Courier New', monospace; font-size: 13px; color: var(--text-main); }
+    .reason-box { margin-top: 12px; padding: 10px; background: rgba(239, 68, 68, 0.1); border-left: 4px solid #ef4444; border-radius: 4px; color: var(--text-main); }
+
+    #chat-form { padding: 16px 24px; background: var(--chat-bg); border-top: 1px solid var(--border-color); display: flex; gap: 12px; }
+    input#user-input { flex: 1; padding: 12px 18px; border: 1px solid var(--border-color); border-radius: 10px; outline: none; background: var(--input-bg); color: var(--text-main); }
+    button { background-color: var(--primary-color); color: white; border: none; padding: 0 24px; border-radius: 10px; cursor: pointer; font-weight: 600; }
+    
+    #theme-toggle {
+      background: #4b5563;
+      padding: 0 15px;
       font-size: 1.2rem;
     }
 
-    .bot-avatar {
-      background: var(--primary-color);
-      color: white;
-    }
-
-    .user-avatar {
-      background: #4b5563;
-      color: white;
-    }
-
-    /* Message Bubbles */
-    .message {
-      padding: 12px 16px;
-      border-radius: 12px;
-      font-size: 14.5px;
-      line-height: 1.6;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-    }
-
-    .user-message {
-      background-color: var(--user-bubble);
-      color: white;
-      border-top-right-radius: 2px;
-    }
-
-    .bot-message {
-      background-color: var(--bot-bubble);
-      color: var(--text-main);
-      border-top-left-radius: 2px;
-      border: 1px solid var(--border-color);
-    }
-
-    /* Logic Results Styling */
-    .proof-container { margin-top: 10px; border-top: 1px solid #eee; padding-top: 10px; }
-    .proof-step { display: block; padding: 4px 0; font-family: 'Fira Code', monospace; font-size: 13px; }
-    .status-valid { color: #059669; font-weight: 700; letter-spacing: 0.5px; }
-    .status-invalid { color: #dc2626; font-weight: 700; }
-
-    /* Input Area */
-    #chat-form {
-      padding: 16px 24px;
-      background: #fff;
-      border-top: 1px solid var(--border-color);
-      display: flex;
-      gap: 12px;
-    }
-
-    input#user-input {
-      flex: 1;
-      padding: 12px 18px;
-      border: 1px solid #d1d5db;
-      border-radius: 10px;
-      outline: none;
-      font-size: 15px;
-      transition: all 0.2s;
-    }
-
-    input#user-input:focus {
-      border-color: var(--primary-color);
-      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-    }
-
-    button {
-      background-color: var(--primary-color);
-      color: white;
-      border: none;
-      padding: 0 24px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: background 0.2s;
-    }
-
-    button:hover { background-color: #1d4ed8; }
-
-    footer {
-      margin-top: 20px;
-      font-size: 13px;
-      color: var(--text-muted);
-    }
+    footer { margin-top: 20px; font-size: 12px; color: var(--text-muted); text-align: center; }
+    footer a { color: var(--primary-color); text-decoration: none; font-weight: 600; }
   </style>
 </head>
 <body>
 
   <div id="description">
     <h1>Logic Validation Agent</h1>
-    <h1>Presented By Ahtesham Latif</h1>
-    <p>Submit premises and conclusions to evaluate validity using Rules of Inference And Categorical Syllogisms.</p>
+    <h2>Presented By Ahtesham Latif</h2>
   </div>
 
   <div id="chat-container">
     <div id="chat-history">
       <div class="message-wrapper bot">
-        <div class="avatar bot-avatar">🤖</div>
+        <div class="avatar bot-avatar">🤠</div>
         <div class="message bot-message">
           Hello! I am your Logic Engine. Enter your premises and conclusion (e.g., <b>P->Q, P, therefore Q</b>) and I will validate the proof for you.
         </div>
@@ -194,81 +128,129 @@
     </div>
 
     <form id="chat-form">
-      <input id="user-input" placeholder="Type your argument here..." autocomplete="off" />
-      <button type="submit">Send</button>
+      <input id="user-input" placeholder="Type your premises and conclusion..." autocomplete="off" />
+      <button type="submit">Validate</button>
+      <button type="button" id="theme-toggle" title="Toggle Dark Mode">🌓</button>
     </form>
   </div>
 
   <footer>
-    Designed by <strong>Ahtesham Latif</strong> | <a href="https://github.com/Ahtesham-Latif" target="_blank" style="text-decoration:none; color:var(--primary-color)">GitHub</a>
+    Designed by <strong>Ahtesham Latif</strong> | 
+    For any problem contact: <a href="mailto:balderunner2049kjoe@gmail.com">balderunner2049kjoe@gmail.com</a><br>
+    <br>
+    <a href="https://github.com/Ahtesham-Latif" target="_blank">GitHub</a> | <a href="https://www.linkedin.com/in/ahtesham-latif-21577132b" target="_blank">LinkedIn</a>
   </footer>
 
   <script>
     const chatHistory = document.getElementById('chat-history');
     const userInput = document.getElementById('user-input');
     const form = document.getElementById('chat-form');
+    const themeToggle = document.getElementById('theme-toggle');
 
-    function appendMessage(content, isUser = false) {
+    // Theme Toggle Logic
+    themeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+    });
+
+    function createBubble(isUser) {
       const wrapper = document.createElement('div');
       wrapper.classList.add('message-wrapper', isUser ? 'user' : 'bot');
-
+      
       const avatar = document.createElement('div');
       avatar.classList.add('avatar', isUser ? 'user-avatar' : 'bot-avatar');
       avatar.innerText = isUser ? 'U' : '🤖';
-
+      
       const msgDiv = document.createElement('div');
       msgDiv.classList.add('message', isUser ? 'user-message' : 'bot-message');
-      msgDiv.innerHTML = content;
-
+      
       wrapper.appendChild(avatar);
       wrapper.appendChild(msgDiv);
       chatHistory.appendChild(wrapper);
       chatHistory.scrollTop = chatHistory.scrollHeight;
+      return msgDiv;
     }
 
     async function sendMessage() {
       const text = userInput.value.trim();
       if (!text) return;
 
-      appendMessage(text, true);
+      createBubble(true).innerText = text;
       userInput.value = '';
 
-      const typingId = 'typing-' + Date.now();
-      appendMessage(`<span id="${typingId}">Analyzing proof...</span>`);
+      const botBubble = createBubble(false);
+      botBubble.innerHTML = `
+        <div class="processing-container">
+          <span class="status-text" id="status">Initializing Logic Engine...</span>
+          <div class="lvl-bar-bg"><div class="lvl-bar-fill" id="fill"></div></div>
+        </div>`;
 
-      try {
-        const res = await fetch('/chat', {
+      const fill = botBubble.querySelector('#fill');
+      const status = botBubble.querySelector('#status');
+
+      const runProgress = (p, t) => { fill.style.width = p + '%'; status.innerText = t; };
+
+      const apiPromise = fetch('/chat', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ userInput: text })
-        });
+      }).then(res => res.json());
 
-        const data = await res.json();
-        const typingElem = document.getElementById(typingId).parentElement;
+      // Animation Timeline
+      setTimeout(() => runProgress(15, "Scanning Syntax and Keywords..."), 500);
+      setTimeout(() => runProgress(35, "Detecting Argument Type (Categorical vs Prop)..."), 2000);
+      setTimeout(() => runProgress(60, "Mapping Terms to Symbolic Logic..."), 3500);
+      setTimeout(() => runProgress(85, "Running Rules of Inference/Replacement..."), 5000);
+      setTimeout(() => runProgress(95, "Finalizing Proof Table..."), 7200);
+
+      try {
+        const minAnimationTime = new Promise(resolve => setTimeout(resolve, 7800));
+        const [data, _] = await Promise.all([apiPromise, minAnimationTime]);
         
-        let output = '';
-        if (data.response.valid) {
-          output = `<div class="status-valid">✓ VALID ARGUMENT</div><div class="proof-container">`;
-          data.response.proof.forEach(s => {
-            output += `<span class="proof-step"><b>${s.step}.</b> ${s.statement} <small style="color:#6b7280; margin-left:8px;">— ${s.rule}</small></span>`;
-          });
-          output += `</div>`;
-        } else {
-          output = `<div class="status-invalid">✗ INVALID ARGUMENT</div><p style="margin:5px 0 0 0">${data.response.error}</p>`;
-        }
-        typingElem.innerHTML = output;
+        const logic = data.response;
+        runProgress(100, "Validation Complete.");
 
-      } catch (err) { 
-        const typingElem = document.getElementById(typingId);
-        if(typingElem) typingElem.innerText = "Error connecting to logic engine.";
+        setTimeout(() => {
+          let html = logic.valid 
+            ? `<div class="status-valid">✓ VALID ARGUMENT</div>` 
+            : `<div class="status-invalid">✗ INVALID ARGUMENT</div>`;
+
+          html += `<div class="logic-header">Type: ${logic.type} ${logic.mood ? '| Mood: '+logic.mood : ''}</div>`;
+
+          if (logic.details) {
+            html += `<div class="info-box"><strong>Categorical Terms:</strong><br>
+              M (Middle): ${logic.details.middle_term || "N/A"}<br>
+              P (Major): ${logic.details.major_term || "N/A"}<br>
+              S (Minor): ${logic.details.minor_term || "N/A"}</div>`;
+          }
+
+          if (logic.dictionary) {
+            html += `<div class="info-box"><strong>Dictionary:</strong>`;
+            for (let k in logic.dictionary) html += `<div>${k}: ${logic.dictionary[k]}</div>`;
+            html += `</div>`;
+          }
+
+          if (logic.proof && Array.isArray(logic.proof)) {
+            html += `<div class="proof-container">`;
+            logic.proof.forEach(s => {
+              html += `<span class="proof-step"><b>${s.step}.</b> ${s.statement} <small style="color:var(--text-muted);">— ${s.rule}</small></span>`;
+            });
+            html += `</div>`;
+          }
+
+          if (!logic.valid) {
+            html += `<div class="reason-box"><strong>LOGICAL ERROR:</strong><br>${logic.error || "Unknown fallacy"}</div>`;
+          }
+
+          botBubble.innerHTML = html;
+          chatHistory.scrollTop = chatHistory.scrollHeight;
+        }, 600); 
+
+      } catch (err) {
+        botBubble.innerHTML = `<div style="color:red">Error: Could not connect to Logic Engine.</div>`;
       }
-      chatHistory.scrollTop = chatHistory.scrollHeight;
     }
 
-    form.addEventListener('submit', e => {
-      e.preventDefault();
-      sendMessage();
-    });
+    form.addEventListener('submit', e => { e.preventDefault(); sendMessage(); });
   </script>
 </body>
 </html>
