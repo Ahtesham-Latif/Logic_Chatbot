@@ -1,17 +1,11 @@
 {
   "name": "logic-chatbot",
   "version": "1.0.0",
-  "description": "Formal logic chatbot using rules of inference and categorical syllogisms",
   "type": "module",
   "main": "server.js",
-  "scripts": {
-    "start": "node server.js"
-  },
-  "author": "Ahtesham Latif",
-  "license": "MIT",
   "dependencies": {
-    "dotenv": "^16.4.5",
-    "express": "^4.19.2",
-    "node-fetch": "^3.3.2"
+    "express": "^4.18.2",
+    "node-fetch": "^3.3.1",
+    "dotenv": "^16.0.3"
   }
 }

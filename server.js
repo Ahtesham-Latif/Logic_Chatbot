@@ -12,7 +12,8 @@ const port = process.env.PORT || 3000;
 const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
 
 app.use(express.json());
-app.use(express.static(join(__dirname)));
+app.use(express.static('.'));
+//app.use(express.static(join(__dirname)));
 
 const SYSTEM_PROMPT = `
 You are a FORMAL LOGIC VALIDATION AGENT. You do not simulate conversation. You only perform structural analysis.
@@ -188,7 +189,11 @@ app.post('/chat', async (req, res) => {
   res.json({ response: logicResult });
 });
 
-app.listen(port, () => {
-  console.log(`Logic Engine Online at http://localhost:${port}`);
-});
-export default app; // This allows Vercel to handle the serverless function
+// Corrected listener and export
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(port, () => {
+    console.log(`Logic Engine Online at http://localhost:${port}`);
+  });
+}
+
+export default app;
