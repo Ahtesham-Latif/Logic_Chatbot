@@ -3,7 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Logic Chatbot | Proof Validator</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Logic Validation Agent by Ahtesham Latif - Validate logical arguments using formal Rules of Inference, Rules of Replacement, and Categorical Propositions. Check argument validity instantly.">
+  <meta name="keywords" content="logic validation, proof checker, formal logic, Ahtesham Latif, logic chatbot, argument validator, rules of inference, categorical syllogism">
+  <meta name="author" content="Ahtesham Latif">
+  
+  <!-- Open Graph for Social Sharing -->
+  <meta property="og:title" content="Logic Validation Agent | Ahtesham Latif">
+  <meta property="og:description" content="Validate logical arguments using formal inference rules - Built by Ahtesham Latif">
+  <meta property="og:url" content="https://ahteshamlatiflogicchatbot.vercel.app/">
+  <meta property="og:type" content="website">
+  
+  <title>Logic Validation Agent | Ahtesham Latif</title>
+  
   <style>
     :root {
       --primary-color: #2563eb;
@@ -43,9 +56,35 @@
       transition: background-color 0.3s ease;
     }
 
-    #description { max-width: 600px; text-align: center; margin-bottom: 1.5rem; }
-    #description h1 { font-size: 1.8rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.5rem; }
-    #description h2 { font-size: 1.2rem; font-weight: 500; color: var(--text-muted); margin-top: 0; }
+    #description { 
+      max-width: 600px; 
+      text-align: center; 
+      margin-bottom: 1.5rem; 
+    }
+    
+    #description h1 { 
+      font-size: 1.8rem; 
+      font-weight: 800; 
+      color: var(--text-main); 
+      margin-bottom: 0.5rem; 
+    }
+    
+    #description .subtitle { 
+      font-size: 1rem; 
+      color: var(--text-muted); 
+      margin: 0.5rem 0; 
+      line-height: 1.5;
+    }
+    
+    #description .author { 
+      font-size: 0.9rem; 
+      color: var(--text-muted); 
+      margin-top: 0.5rem; 
+    }
+    
+    #description .author strong {
+      color: var(--text-main);
+    }
 
     #chat-container {
       background: var(--chat-bg);
@@ -114,7 +153,8 @@
 
   <div id="description">
     <h1>Logic Validation Agent</h1>
-    <h2>Presented By Ahtesham Latif</h2>
+    <p class="subtitle">Validate logical arguments using formal Rules of Inference, Rules of Replacement, and Categorical Propositions</p>
+    <p class="author">Built by <strong>Ahtesham Latif</strong></p>
   </div>
 
   <div id="chat-container">
