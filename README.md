@@ -1,4 +1,6 @@
 # Logic Chatbot
+## 🚀 Live Demo
+**Try it now:** [https://ahteshamlatiflogicchatbot.vercel.app/](https://ahteshamlatiflogicchatbot.vercel.app/)
 
 A web-based chatbot that validates arguments using **Rules of Inference**, **Rules of Replacement**, and **Categorical Propositions**, and identifies the **mood and figure of categorical syllogisms** (e.g., AAA-1, AAI-2). The system provides **step-by-step proofs** for valid arguments and **clear explanations** for invalid ones.
 
@@ -125,7 +127,10 @@ LOGIC CAPABILITIES:
 * The chatbot is designed to avoid informal reasoning and strictly follow **formal logic rules only**.
 
 ---
-
+## 👨‍💻 Author
+**Ahtesham Latif**
+- LinkedIn: [linkedin.com/in/ahteshamlatif-21577132b](https://linkedin.com/in/ahteshamlatif-21577132b)
+- GitHub: [github.com/Ahtesham-Latif](https://github.com/Ahtesham-Latif)
 ## 📜 License
 
 This project is licensed for **educational and academic use**.
