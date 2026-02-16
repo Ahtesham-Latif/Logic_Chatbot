@@ -24,7 +24,6 @@ If it passed all the checks, you MUST return a valid JSON object.
 If it fails any check you have to return that check name.
 If it fails any check, you MUST return the error message.
 Must follow the format below.
-Dont do hallucinations!
 Dont use any other language.
 Dont use any other format.
 =========================================
@@ -172,11 +171,24 @@ async function validateLogic(userInput) {
       })
     });
 
+   // const data = await response.json();
     const data = await response.json();
-    let rawContent = data.choices?.[0]?.message?.content;
-    
-    // Clean potential markdown wrapping
-    const jsonMatch = rawContent.match(/\{[\s\S]*\}/);
+console.log("FULL API RESPONSE:", JSON.stringify(data, null, 2));
+
+    let rawContent = data?.choices?.[0]?.message?.content;
+
+  if (!rawContent) {
+    return { valid: false, error: "Model returned empty response" };
+  }
+
+  const jsonMatch = rawContent.match(/\{[\s\S]*\}/);
+
+  if (!jsonMatch) {
+  return { valid: false, error: "Model did not return valid JSON" };
+  }
+
+  return JSON.parse(jsonMatch[0]);
+
     return jsonMatch ? JSON.parse(jsonMatch[0]) : { error: "Invalid JSON response" };
 
   } catch (error) {
