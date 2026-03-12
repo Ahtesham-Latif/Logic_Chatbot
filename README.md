@@ -1,74 +1,147 @@
-# Logic Chatbot
+# 🧠 Logic Chatbot – Formal Logic Validation Agent
+
 ## 🚀 Live Demo
-**Try it now:** [https://ahteshamlatiflogicchatbot.vercel.app/](https://ahteshamlatiflogicchatbot.vercel.app/)
 
-A web-based chatbot that validates arguments using **Rules of Inference**, **Rules of Replacement**, and **Categorical Propositions**, and identifies the **mood and figure of categorical syllogisms** (e.g., AAA-1, AAI-2). The system provides **step-by-step proofs** for valid arguments and **clear explanations** for invalid ones.
+**Try it now:**
+https://ahteshamlatiflogicchatbot.vercel.app/
 
----
+A **web-based AI chatbot** that validates logical arguments using **formal logic systems**.
+The system analyzes arguments using **Rules of Inference**, **Rules of Replacement**, and **Categorical Logic**, and determines whether a conclusion logically follows from the premises.
 
-## ✨ Features
-
-* **Propositional Logic Validation**
-
-  * Modus Ponens
-  * Modus Tollens
-  * Hypothetical Syllogism
-  * Disjunctive Syllogism
-  * Addition, Simplification, Conjunction, etc.
-
-* **Rules of Replacement**
-
-  * De Morgan’s Laws
-  * Double Negation
-  * Commutation
-  * Association
-  * Distribution
-  * Material Implication & Biconditional
-
-* **Categorical Logic**
-
-  * Analyzes categorical propositions (A, E, I, O)
-  * Automatically detects **Mood & Figure** (e.g., AAA-1)
-  * Validity checking of syllogisms
-
-* **AI-Powered Reasoning**
-
-  * Step-by-step logical proofs
-  * Clear invalidity explanations
-  * **Strict JSON output format** including:
-
-    * verdict
-    * proof
-    * mood
-    * explanation
+It can also identify the **Mood and Figure of categorical syllogisms** (e.g., `AAA-1`, `AAI-2`) and generate **step-by-step proofs** for valid arguments while explaining **why invalid arguments fail**.
 
 ---
 
-## 🛠 Installation
+# ✨ Features
 
-### 1. Clone the Repository
+## Propositional Logic Validation
+
+Supports classical **Rules of Inference** including:
+
+* Modus Ponens
+* Modus Tollens
+* Hypothetical Syllogism
+* Disjunctive Syllogism
+* Addition
+* Simplification
+* Conjunction
+
+---
+
+## Rules of Replacement
+
+Recognizes logical equivalence transformations such as:
+
+* De Morgan’s Laws
+* Double Negation
+* Commutation
+* Association
+* Distribution
+* Material Implication
+* Biconditional Replacement
+
+---
+
+## Categorical Logic
+
+The system can analyze **categorical syllogisms** and automatically determine:
+
+* Proposition types (**A, E, I, O**)
+* **Mood of the syllogism**
+* **Figure of the syllogism**
+* Overall logical validity
+
+Example mood output:
+
+```
+AAA-1
+```
+
+---
+
+## AI-Powered Reasoning
+
+The backend integrates an **LLM through the OpenRouter API** to reason about logical arguments while enforcing a **strict JSON output format**.
+
+Output structure includes:
+
+* verdict
+* proof steps
+* mood and figure
+* explanation of reasoning
+
+Example response format:
+
+```json
+{
+  "verdict": "valid",
+  "proof": [
+    { "step": 1, "statement": "P → Q", "rule": "Premise" },
+    { "step": 2, "statement": "P", "rule": "Premise" },
+    { "step": 3, "statement": "Q", "rule": "Modus Ponens" }
+  ],
+  "mood": "AAA-1",
+  "explanation": "Conclusion follows logically via Modus Ponens."
+}
+```
+
+---
+
+# 🛠 Tech Stack
+
+### Frontend
+
+* HTML
+* CSS
+* Vanilla JavaScript
+
+### Backend
+
+* Node.js
+* Express.js
+
+### AI Integration
+
+* OpenRouter API
+* LLM-based reasoning
+
+### Deployment
+
+* Vercel
+
+---
+
+# ⚙️ Installation
+
+## 1. Clone the Repository
 
 ```bash
 git clone https://github.com/Ahtesham-Latif/Logic_Chatbot.git
 cd Logic_Chatbot
 ```
 
-### 2. Create Environment File
+---
 
-Create a `.env` file in the root directory:
-
-```env
-OPENROUTER_API_KEY=your_api_key_here
-PORT=3000
-```
-
-### 3. Install Dependencies
+## 2. Install Dependencies
 
 ```bash
 npm install
 ```
 
-### 4. Run the Server
+---
+
+## 3. Create Environment Variables
+
+Create a `.env` file in the root directory:
+
+```
+OPENROUTER_API_KEY=your_api_key_here
+PORT=3000
+```
+
+---
+
+## 4. Start the Server
 
 ```bash
 node server.js
@@ -76,61 +149,43 @@ node server.js
 
 ---
 
-============================================================
-PROJECT: Formal Logic Validation Agent (AI-Powered)
-SUBMITTED BY: [Ahtesham_Latif]
-=========================
+## 5. Access the Chatbot
 
-DESCRIPTION:
-This is a full-stack, AI-powered chatbot designed to analyze
-**propositional logic arguments** and **categorical syllogisms**.
-The system uses a **Node.js backend** integrated with an LLM via
-OpenRouter to reason strictly within formal logical systems.
+Open your browser and go to:
 
-LOGIC CAPABILITIES:
-
-* Rules of Inference: Modus Ponens, Modus Tollens, etc.
-* Rules of Replacement: Double Negation, De Morgan’s Laws, etc.
-* Categorical Syllogisms: Automatic detection of Mood & Figure (e.g., AAA-1)
-* Proof Generation: Step-by-step validation of arguments
+```
+http://localhost:3030
+```
 
 ---
 
-## HOW TO RUN THE PROJECT:
+# 🎓 Project Purpose
 
-1. PREREQUISITES:
-   Ensure **Node.js** is installed on your system.
+This project was created to help students understand and practice **formal logical reasoning**.
 
-2. INSTALLATION:
-   Open your terminal in the project directory and run:
+It is useful for:
 
-   > npm install
+* Philosophy and logic students
+* Debate preparation
+* Critical thinking exercises
+* Demonstrations of **AI-assisted reasoning systems**
 
-3. CONFIGURATION (IMPORTANT):
-   Open the `.env` file and insert your OpenRouter API key:
-   OPENROUTER_API_KEY=your_key_here
-
-4. START THE SERVER:
-   In the terminal, run:
-
-   > node server.js
-
-5. ACCESS THE CHATBOT:
-   Open your browser and navigate to:
-   [http://localhost:3030](http://localhost:3030)
-
-============================================================
-
-## 📌 Notes
-
-* This project is ideal for **logic students**, **philosophy courses**, and **AI reasoning demonstrations**.
-* The chatbot is designed to avoid informal reasoning and strictly follow **formal logic rules only**.
+The chatbot is designed to **strictly follow formal logic rules** and avoid informal reasoning.
 
 ---
-## 👨‍💻 Author
+
+# 👨‍💻 Author
+
 **Ahtesham Latif**
-- LinkedIn: [linkedin.com/in/ahteshamlatif-21577132b](https://linkedin.com/in/ahteshamlatif-21577132b)
-- GitHub: [github.com/Ahtesham-Latif](https://github.com/Ahtesham-Latif)
-## 📜 License
+
+GitHub
+https://github.com/Ahtesham-Latif
+
+LinkedIn
+https://www.linkedin.com/in/ahtesham-latif
+
+---
+
+# 📜 License
 
 This project is licensed for **educational and academic use**.
