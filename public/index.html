@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="description" content="Free Logic Proof Checker - Validate your logical arguments instantly.">
+  <meta name="keywords" content="logic checker, proof validator, formal logic, argument validator">
+  <meta name="author" content="Ahtesham Latif">
+  <meta property="og:title" content="Logic Proof Checker">
+  <meta property="og:description" content="Test if your logical arguments are valid or invalid.">
+  <meta property="og:url" content="https://ahteshamlatiflogicchatbot.vercel.app/">
+  <meta property="og:type" content="website">
+
+  <title>Logic Validation Agent | Ahtesham Latif</title>
+
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="app.js"></script>
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+  <div id="description">
+    <h1>Logic Validation Agent</h1>
+    <p class="subtitle">Validate logical arguments using formal Rules of Inference and Categorical Propositions</p>
+  </div>
+
+  <button type="button" id="theme-toggle" title="Toggle Dark Mode" aria-label="Toggle dark mode" aria-pressed="false">
+    🌙
+  </button>
+
+  <div id="chat-container">
+    <div id="chat-history" role="log" aria-live="polite" aria-relevant="additions text">
+      <div class="message-wrapper bot">
+        <div class="avatar bot-avatar">
+          🤠
+        </div>
+        <div class="message bot-message">
+          Hi! I'm your formal logic validation agent. Type your premises and conclusion below to check if your argument is logically sound!
+        </div>
+      </div>
+    </div>
+    <form id="chat-form">
+      <div id="symbol-bar" aria-label="Logic symbol toolbar">
+          <button type="button" data-symbol="→" data-label="Implies" title="Implies (Conditional)" aria-label="Insert implication symbol">→</button>
+          <button type="button" data-symbol="∧" data-label="And" title="AND (Conjunction)" aria-label="Insert conjunction symbol">∧</button>
+          <button type="button" data-symbol="∨" data-label="Or" title="OR (Disjunction)" aria-label="Insert disjunction symbol">∨</button>
+          <button type="button" data-symbol="¬" data-label="Not" title="NOT (Negation)" aria-label="Insert negation symbol">¬</button>
+          <button type="button" data-symbol="∴" data-label="Therefore" title="Therefore (Conclusion)" aria-label="Insert therefore symbol">∴</button>
+          <button type="button" data-symbol="∀" data-label="For All" title="For All (Universal)" aria-label="Insert universal quantifier">∀</button>
+          <button type="button" data-symbol="∃" data-label="Exists" title="There Exists (Existential)" aria-label="Insert existential quantifier">∃</button>
+        </div>
+        <div class="input-wrapper">
+          <input id="user-input" placeholder="Type your premises and conclusion..." autocomplete="off" aria-label="Enter premises and conclusion">
+          <button type="submit">Validate</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    Designed by <strong>Ahtesham Latif</strong> |
+    For any problem contact: <a href="mailto:bladerunner2049kjoe@gmail.com" target="_blank" rel="noreferrer">bladerunner2049kjoe@gmail.com</a><br>
+    <br>
+    <a href="https://github.com/Ahtesham-Latif" target="_blank" rel="noreferrer">GitHub</a> |
+    <a href="https://www.linkedin.com/in/ahtesham-latif" target="_blank" rel="noreferrer">LinkedIn</a>
+    <br>
+    <button class="info-btn" id="infoBtn" aria-label="Open how it works dialog" aria-controls="purposeModal">ℹ️ How It Works</button>
+  </footer>
+
+  <div id="welcomeModal" class="welcome-modal" role="dialog" aria-modal="true" aria-labelledby="welcomeTitle" aria-hidden="true" tabindex="-1">
+    <div class="welcome-content">
+      <div class="welcome-header">
+        <h1 id="welcomeTitle">Logic Proof Checker</h1>
+        <p>🎯 Does your argument make sense?</p>
+      </div>
+
+      <div class="welcome-features">
+        <div class="feature-item">
+          <strong>✅ Validation</strong>
+          <p>Check if arguments are valid or invalid</p>
+        </div>
+        <div class="feature-item">
+          <strong>📋 Proof Steps</strong>
+          <p>See complete proof derivations</p>
+        </div>
+        <div class="feature-item">
+          <strong>🔍 Error Detection</strong>
+          <p>Find logical fallacies instantly</p>
+        </div>
+        <div class="feature-item">
+          <strong>⚡ Multi-Premise</strong>
+          <p>Handle 5+ complex arguments</p>
+        </div>
+      </div>
+
+      <p class="welcome-copy">
+        Validate logical arguments in natural language. Perfect for philosophy students, debate prep, and critical thinking practice.
+      </p>
+
+      <button class="welcome-btn" id="startBtn" aria-label="Dismiss welcome dialog">Get Started</button>
+      <button class="info-btn" id="learnMoreBtn" aria-label="Open how it works dialog">Learn More</button>
+    </div>
+  </div>
+
+  <div id="purposeModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="purposeTitle" aria-hidden="true" tabindex="-1">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="purposeTitle">🎓 How It Works</h2>
+        <button class="close-btn" id="closeBtn" aria-label="Close how it works dialog">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p><strong>The Purpose:</strong> This tool is built to assist students in mastering <em>Formal Logic</em>. It validates the structural integrity of your arguments, ensuring that your conclusions are logically necessitated by your premises.</p>
+
+        <hr>
+        <h3>What It Can Handle:</h3>
+        <ul>
+          <li><strong>Single Premises:</strong> Simple one-step arguments</li>
+          <li><strong>Multiple Premises:</strong> Complex arguments with 5+ premises in natural language</li>
+          <li><strong>Categorical Logic:</strong> Syllogisms with "All", "Some", "No" statements</li>
+          <li><strong>Propositional Logic:</strong> Arguments using →, ∧, ∨, ¬ operators</li>
+          <li><strong>Mixed Arguments:</strong> Combination of categories and propositions</li>
+          <li><strong>Natural Language:</strong> Write arguments in plain sentences, not just symbols</li>
+        </ul>
+
+        <div class="modal-example-box valid-example">
+          <strong>✓ Valid Arguments:</strong>
+          <pre>All humans are mortal.
+Socrates is human.
+∴ Socrates is mortal.</pre>
+        </div>
+
+        <div class="modal-example-box invalid-example">
+          <strong>✗ Invalid Arguments:</strong>
+          <pre>If it rains, the ground is wet.
+The ground is wet.
+∴ It is raining.</pre>
+        </div>
+
+        <hr>
+        <strong>How to use:</strong>
+        <ul>
+          <li><strong>Premises:</strong> Write your known truths</li>
+          <li><strong>Multiple Premises:</strong> Each on a new line</li>
+          <li><strong>Conclusion:</strong> Use "∴" or "Therefore"</li>
+        </ul>
+
+        <p class="pro-tips">
+          <strong>💡 Pro Tips:</strong><br>
+          • Use "∴" or "therefore" before conclusion<br>
+          • Each premise can be a full sentence<br>
+          • Handles 7+ premises<br>
+          • Shows proof steps and fallacies
+        </p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
