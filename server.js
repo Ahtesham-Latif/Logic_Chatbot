@@ -78,7 +78,7 @@ JSON OUTPUT FORMAT (ONLY)
   "type": "Categorical Syllogism" | "Propositional Logic",
   "mood": "AAA-1" | null,
   "details": {
-    "major_term": "string" | null,
+    "major_term": "string" | null,z
     "minor_term": "string" | null,
     "middle_term": "string" | null
   },
@@ -107,7 +107,7 @@ async function validateLogic(userInput) {
       },
       body: JSON.stringify({
         //free model 
-        model: "arcee-ai/trinity-large-preview:free", 
+        model: "arcee-ai/trinity-large-thinking:free", 
         messages: [
           { role: "system", content: SYSTEM_PROMPT },
           { role: "user", content: userInput }
