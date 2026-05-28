@@ -6,7 +6,7 @@
 **🚀 Try it Live:** https://ahteshamlatiflogicchatbot.vercel.app/
 
 <p align="center">
-  <video src="./DEMO_TestResults//demodesktop.mp4" width="100%" max-width="600px" controls autoplay loop muted></video>
+  <video src="https://media.githubusercontent.com/media/Ahtesham-Latif/Logic_Chatbot/main/DEMO_TestResults/demodesktop.mp4" width="100%" style="max-width: 600px;" controls autoplay loop muted></video>
 </p>
 
 A web-based, deterministic AI engine designed to validate natural-language arguments using formal **Rules of Inference**, **Rules of Replacement**, and **Categorical Logic**.
