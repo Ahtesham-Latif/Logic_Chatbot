@@ -11,6 +11,7 @@ const app = express();
 const port = process.env.PORT || 3030;
 const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
 
+
 app.use(express.json());
 // app.use(express.static('.'));
 app.use(express.static(join(__dirname, 'public')));
@@ -260,7 +261,8 @@ async function validateLogic(userInput) {
       },
       body: JSON.stringify({
         //free model 
-        model: "arcee-ai/trinity-large-thinking:free", 
+       //model: "arcee-ai/trinity-large-thinking:free", 
+        model: "openrouter/free",
         messages: [
           { role: "system", content: SYSTEM_PROMPT },
           { role: "user", content: userInput }
@@ -270,7 +272,9 @@ async function validateLogic(userInput) {
     });
 
     if (!response.ok) {
-      throw new Error(`OpenRouter API Error: ${response.status} ${response.statusText}`);
+      
+      // We can run Backup model attempt if primary fails
+      throw new Error(`Model Error : ${response.status} ${response.statusText}`);
     }
 
     const data = await response.json();

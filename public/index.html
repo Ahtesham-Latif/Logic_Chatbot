@@ -52,6 +52,36 @@
           <button type="button" data-symbol="∀" data-label="For All" title="For All (Universal)" aria-label="Insert universal quantifier">∀</button>
           <button type="button" data-symbol="∃" data-label="Exists" title="There Exists (Existential)" aria-label="Insert existential quantifier">∃</button>
         </div>
+        <div id="example-bar" class="example-bar" aria-label="Starter examples">
+          <span class="example-label">Starter examples:</span>
+          <button
+            type="button"
+            class="example-chip"
+            data-example-id="categorical_valid"
+            aria-label="Insert a valid categorical syllogism example"
+            title="Insert a valid categorical syllogism example"
+          >
+            Categorical
+          </button>
+          <button
+            type="button"
+            class="example-chip"
+            data-example-id="propositional_valid"
+            aria-label="Insert a valid propositional logic example"
+            title="Insert a valid propositional logic example"
+          >
+            Propositional
+          </button>
+          <button
+            type="button"
+            class="example-chip"
+            data-example-id="invalid_example"
+            aria-label="Insert an invalid argument example"
+            title="Insert an invalid argument example"
+          >
+            Invalid
+          </button>
+        </div>
         <div class="input-wrapper">
           <input id="user-input" placeholder="Type your premises and conclusion..." autocomplete="off" aria-label="Enter premises and conclusion">
           <button type="submit">Validate</button>

@@ -136,6 +136,44 @@ a:focus-visible {
   max-height: min(76vh, 760px);
 }
 
+.example-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px 0;
+}
+
+.example-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--text-muted);
+  margin-right: 4px;
+}
+
+.example-chip {
+  border: 1px solid var(--border-color);
+  background: linear-gradient(135deg, var(--accent-light), var(--chat-bg));
+  color: var(--text-main);
+  border-radius: 999px;
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.example-chip:hover {
+  border-color: var(--primary-color);
+  box-shadow: 0 8px 18px rgba(37, 99, 235, 0.12);
+}
+
+.example-chip:focus-visible {
+  outline: 3px solid rgba(37, 99, 235, 0.35);
+  outline-offset: 2px;
+}
+
 #chat-history {
   flex: 1;
   overflow-y: auto;
@@ -323,6 +361,16 @@ a:focus-visible {
 
 .proof-container {
   margin-top: 8px;
+}
+
+.proof-empty {
+  margin-top: 8px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px dashed var(--border-color);
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-style: italic;
 }
 
 .proof-step {

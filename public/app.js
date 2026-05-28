@@ -14,11 +14,18 @@ const purposeModal = document.getElementById("purposeModal");
 const infoBtn = document.getElementById("infoBtn");
 const closeBtn = document.getElementById("closeBtn");
 const symbolBar = document.getElementById("symbol-bar");
+const exampleBar = document.getElementById("example-bar");
 const startBtn = document.getElementById("startBtn");
 const learnMoreBtn = document.getElementById("learnMoreBtn");
 
 let activeModal = null;
 let previousFocus = null;
+
+const EXAMPLE_ARGUMENTS = {
+  categorical_valid: `All humans are mortal.\n Socrates is human.\n ∴ Socrates is mortal.`,
+  propositional_valid: `P → Q, P\n∴ Q`,
+  invalid_example: `If it rains, the ground is wet.\ nThe ground is wet.\n ∴ It is raining.`
+};
 
 function readStorage(key) {
   try {
@@ -157,6 +164,19 @@ function insertAtCursor(field, value) {
 
   field.value += value;
   field.focus();
+}
+
+function loadExample(exampleId) {
+  const example = EXAMPLE_ARGUMENTS[exampleId];
+  if (!example) return;
+
+  userInput.value = example;
+  userInput.focus();
+
+  if (typeof userInput.setSelectionRange === "function") {
+    const end = example.length;
+    userInput.setSelectionRange(end, end);
+  }
 }
 
 function createBubble(isUser) {
@@ -463,6 +483,15 @@ function bindEvents() {
     const symbol = btn.getAttribute("data-symbol") || btn.textContent.trim();
     insertAtCursor(userInput, symbol);
   });
+
+  if (exampleBar) {
+    exampleBar.addEventListener("click", (event) => {
+      const btn = event.target.closest("button[data-example-id]");
+      if (!btn) return;
+
+      loadExample(btn.dataset.exampleId);
+    });
+  }
 
   chatForm.addEventListener("submit", (event) => {
     event.preventDefault();
